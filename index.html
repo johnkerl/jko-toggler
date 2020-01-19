@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8" />
+<meta name="description" content="JKOTogger example page" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- mobile-friendly -->
+
+<title>JKOToggler example page</title>
+<link rel="stylesheet" type="text/css" href="./sample.css">
+
+</head>
+
+<body>
+
+<!-- ================================================================ -->
+<h1><span class="boxed-text">JKOToggler example page</span></h1>
+
+<!-- ================================================================ -->
+<hr/>
+<h2>Example with expand-uniquely</h2>
+
+<p>Expanding one section collapses all the others.
+
+<div style="text-align:center">
+  <p>
+  <button class="maroon"
+    id="example_1_writing_about_math_button"
+    onClick='toggler1.expandUniquely("example_1_writing_about_math"); return false;'
+  >Section 1
+  </button>
+
+  <button
+    id="example_1_writing_about_software_button"
+    onClick='toggler1.expandUniquely("example_1_writing_about_software"); return false;'
+  >Section 2
+  </button>
+
+  <button
+    id="example_1_writing_about_other_things_button"
+    onClick='toggler1.expandUniquely("example_1_writing_about_other_things"); return false;'
+  >Section 3
+  </button>
+
+  <button
+    onClick='toggler1.expandAll(); return false;'
+  >Expand all
+  </button>
+
+  <button
+    onClick='toggler1.collapseAll(); return false;'
+  >Collapse all
+  </button>
+
+  <p>
+</div>
+
+<!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+<p>
+<div id="example_1_writing_about_math" style="display: none">
+<h3>Section 1</h3>
+
+<p>
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+incididunt ut labore et dolore magna aliqua. Diam sollicitudin tempor id eu
+nisl nunc mi ipsum faucibus. Sed vulputate mi sit amet mauris. Ut tellus
+elementum sagittis vitae et leo duis ut. Nunc sed blandit libero volutpat sed
+cras. Cursus in hac habitasse platea dictumst quisque. Amet dictum sit amet
+justo. In cursus turpis massa tincidunt. Vitae proin sagittis nisl rhoncus
+mattis rhoncus urna neque. Enim nunc faucibus a pellentesque sit amet. Vel orci
+porta non pulvinar neque laoreet. Facilisi nullam vehicula ipsum a. Mi bibendum
+neque egestas congue quisque egestas diam in arcu. Viverra mauris in aliquam
+sem fringilla ut morbi tincidunt augue.
+</p>
+
+</div>
+
+<!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+<p>
+<div id="example_1_writing_about_software" style="display: none">
+<h3>Section 2</h3>
+
+<p>
+Ipsum faucibus vitae aliquet nec ullamcorper sit amet risus nullam. Convallis
+posuere morbi leo urna molestie at elementum eu facilisis. Sit amet consectetur
+adipiscing elit. Augue mauris augue neque gravida. Vel pharetra vel turpis nunc
+eget lorem dolor sed viverra. Fermentum posuere urna nec tincidunt praesent
+semper. Sapien pellentesque habitant morbi tristique senectus et netus et.
+Consectetur adipiscing elit ut aliquam purus sit amet. Eget egestas purus
+viverra accumsan in nisl nisi. Ullamcorper morbi tincidunt ornare massa eget
+egestas. Massa enim nec dui nunc mattis. Orci eu lobortis elementum nibh. Sit
+amet mauris commodo quis. Aliquet risus feugiat in ante metus. Ornare arcu odio
+ut sem. Auctor elit sed vulputate mi sit amet mauris. Urna nec tincidunt
+praesent semper feugiat nibh sed pulvinar. Vitae tortor condimentum lacinia
+quis vel eros donec ac.
+</p>
+
+</div>
+
+<!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+<div id="example_1_writing_about_other_things" style="display: none">
+<h3>Section 3</h3>
+
+<p>
+Nunc pulvinar sapien et ligula ullamcorper malesuada. Ante in nibh mauris
+cursus mattis molestie a iaculis at. Et ultrices neque ornare aenean euismod.
+Pharetra magna ac placerat vestibulum lectus mauris. Semper auctor neque vitae
+tempus quam pellentesque nec nam. Viverra suspendisse potenti nullam ac tortor
+vitae purus. Vel risus commodo viverra maecenas accumsan lacus vel facilisis
+volutpat. Dictum non consectetur a erat. Sit amet nisl suscipit adipiscing
+bibendum est ultricies. Ipsum consequat nisl vel pretium lectus. Sapien eget mi
+proin sed libero enim sed faucibus turpis. Faucibus a pellentesque sit amet
+porttitor eget dolor. Egestas dui id ornare arcu odio ut sem nulla pharetra.
+Nunc sed velit dignissim sodales ut eu sem integer. Porttitor lacus luctus
+accumsan tortor posuere ac. Id consectetur purus ut faucibus pulvinar. Bibendum
+est ultricies integer quis auctor elit sed vulputate mi. Magna sit amet purus
+gravida quis.
+</p>
+
+</div>
+
+<!-- ================================================================ -->
+<hr/>
+<h2>Example with expand-independently</h2>
+
+<p>Expanding one section does not collapse all the others: each section has an
+independently toggleable is-visible button.
+
+<div style="text-align:center">
+  <p>
+  <button class="maroon"
+    id="example_2_writing_about_math_button"
+    onClick='toggler2.toggle("example_2_writing_about_math"); return false;'
+  >Section 1
+  </button>
+
+  <button
+    id="example_2_writing_about_software_button"
+    onClick='toggler2.toggle("example_2_writing_about_software"); return false;'
+  >Section 2
+  </button>
+
+  <button
+    id="example_2_writing_about_other_things_button"
+    onClick='toggler2.toggle("example_2_writing_about_other_things");'
+  >Section 3
+  </button>
+
+  <button
+    onClick='toggler2.expandAll(); return false;'
+  >Expand all
+  </button>
+
+  <button
+    onClick='toggler2.collapseAll(); return false;'
+  >Collapse all
+  </button>
+
+  <p>
+</div>
+
+<!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+<p>
+<div id="example_2_writing_about_math" style="display: none">
+<h3>Section 1</h3>
+
+<p>
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+incididunt ut labore et dolore magna aliqua. Diam sollicitudin tempor id eu
+nisl nunc mi ipsum faucibus. Sed vulputate mi sit amet mauris. Ut tellus
+elementum sagittis vitae et leo duis ut. Nunc sed blandit libero volutpat sed
+cras. Cursus in hac habitasse platea dictumst quisque. Amet dictum sit amet
+justo. In cursus turpis massa tincidunt. Vitae proin sagittis nisl rhoncus
+mattis rhoncus urna neque. Enim nunc faucibus a pellentesque sit amet. Vel orci
+porta non pulvinar neque laoreet. Facilisi nullam vehicula ipsum a. Mi bibendum
+neque egestas congue quisque egestas diam in arcu. Viverra mauris in aliquam
+sem fringilla ut morbi tincidunt augue.
+</p>
+
+</div>
+
+<!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+<p>
+<div id="example_2_writing_about_software" style="display: none">
+<h3>Section 2</h3>
+
+<p>
+Ipsum faucibus vitae aliquet nec ullamcorper sit amet risus nullam. Convallis
+posuere morbi leo urna molestie at elementum eu facilisis. Sit amet consectetur
+adipiscing elit. Augue mauris augue neque gravida. Vel pharetra vel turpis nunc
+eget lorem dolor sed viverra. Fermentum posuere urna nec tincidunt praesent
+semper. Sapien pellentesque habitant morbi tristique senectus et netus et.
+Consectetur adipiscing elit ut aliquam purus sit amet. Eget egestas purus
+viverra accumsan in nisl nisi. Ullamcorper morbi tincidunt ornare massa eget
+egestas. Massa enim nec dui nunc mattis. Orci eu lobortis elementum nibh. Sit
+amet mauris commodo quis. Aliquet risus feugiat in ante metus. Ornare arcu odio
+ut sem. Auctor elit sed vulputate mi sit amet mauris. Urna nec tincidunt
+praesent semper feugiat nibh sed pulvinar. Vitae tortor condimentum lacinia
+quis vel eros donec ac.
+</p>
+
+</div>
+
+<!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
+<div id="example_2_writing_about_other_things" style="display: none">
+<h3>Section 3</h3>
+
+<p>
+Nunc pulvinar sapien et ligula ullamcorper malesuada. Ante in nibh mauris
+cursus mattis molestie a iaculis at. Et ultrices neque ornare aenean euismod.
+Pharetra magna ac placerat vestibulum lectus mauris. Semper auctor neque vitae
+tempus quam pellentesque nec nam. Viverra suspendisse potenti nullam ac tortor
+vitae purus. Vel risus commodo viverra maecenas accumsan lacus vel facilisis
+volutpat. Dictum non consectetur a erat. Sit amet nisl suscipit adipiscing
+bibendum est ultricies. Ipsum consequat nisl vel pretium lectus. Sapien eget mi
+proin sed libero enim sed faucibus turpis. Faucibus a pellentesque sit amet
+porttitor eget dolor. Egestas dui id ornare arcu odio ut sem nulla pharetra.
+Nunc sed velit dignissim sodales ut eu sem integer. Porttitor lacus luctus
+accumsan tortor posuere ac. Id consectetur purus ut faucibus pulvinar. Bibendum
+est ultricies integer quis auctor elit sed vulputate mi. Magna sit amet purus
+gravida quis.
+</p>
+
+</div>
+
+<!-- ================================================================ -->
+<hr/>
+
+<!-- ================================================================ -->
+<script src="./jko-toggler.js"></script>
+<script>
+  // Put this at the bottom of the page since its constructor scans the
+  // document's div tags to find the example_2_.
+  const toggler1 = new JKOToggler(
+    'example_1_',
+    'maroon',
+    'maroon',
+  );
+  const toggler2 = new JKOToggler(
+    'example_2_',
+    'maroon',
+    'maroon',
+  );
+</script>
+
+</body>
+</html>
