@@ -5,8 +5,6 @@
 'use strict';
 
 class JKOToggler {
-  LOCAL_STORAGE_KEY = document.URL + '-toggler-memory';
-
   // ----------------------------------------------------------------
   // PUBLIC METHODS
 
@@ -23,9 +21,10 @@ class JKOToggler {
     this._buttonSelectColor = buttonSelectColor;
     this._buttonDeselectColor = buttonDeselectColor;
     this._allExpanded = false;
+    this.LOCAL_STORAGE_KEY = document.URL + '-toggler-memory';
 
     this._restore();
-  }
+  };
 
   // Opening one closes others, unless expand-all.
   //
@@ -36,7 +35,7 @@ class JKOToggler {
   //   o selecting that same one means collapse it;
   //   o selecting that another means collapse the old one and expand
   //     the new one.
-  expandUniquely = (divName) => {
+  expandUniquely(divName) {
     const eleDiv = document.getElementById(divName);
     const button = document.getElementById(divName+"_button")
     if (eleDiv != null) {
@@ -63,17 +62,17 @@ class JKOToggler {
     this._allExpanded = false;
 
     this._saveOne(divName);
-  };
+  }
 
-  expandAll = () => {
+  expandAll() {
     for (let divName of this._allDivNames) {
       this._expand(divName);
     }
     this._allExpanded = true;
     this._saveAll();
-  };
+  }
 
-  collapseAll = () => {
+  collapseAll() {
     for (let divName of this._allDivNames) {
       this._collapse(divName);
     }
@@ -81,7 +80,7 @@ class JKOToggler {
     this._saveNone();
   }
 
-  toggle = (divName) => {
+  toggle(divName) {
     const div = document.getElementById(divName);
     const button = document.getElementById(divName+"_button")
     if (div != null) {
@@ -105,7 +104,7 @@ class JKOToggler {
   // ----------------------------------------------------------------
   // PRIVATE METHODS FOR TOGGLE FUNCTIONALITY
 
-  _expand = (divName) => {
+  _expand(divName) {
     const eleDiv = document.getElementById(divName);
     const button = document.getElementById(divName+"_button")
     if (eleDiv != null) {
@@ -114,9 +113,9 @@ class JKOToggler {
     if (button != null) {
       this._makeButtonSelected(button)
     }
-  };
+  }
 
-  _collapse = (divName) => {
+  _collapse(divName) {
     const eleDiv = document.getElementById(divName);
     const button = document.getElementById(divName+"_button")
     if (eleDiv != null) {
@@ -125,28 +124,28 @@ class JKOToggler {
     if (button != null) {
       this._makeButtonDeselected(button)
     }
-  };
+  }
 
-  _makeButtonSelected = (button) => {
+  _makeButtonSelected (button) {
     button.style.borderColor = this._buttonSelectColor;
     button.style.backgroundColor = 'white';
     button.style.borderWidth = '1px';
     button.style.borderStyle = 'solid';
     button.style.borderRadius = '4px';
-  };
+  }
 
-  _makeButtonDeselected = (button) => {
+  _makeButtonDeselected(button) {
     button.style.borderColor = this._buttonDeselectColor;
     button.style.backgroundColor = '#f0f0f0';
     button.style.borderWidth = '1px';
     button.style.borderStyle = 'solid';
     button.style.borderRadius = '4px';
-  };
+  }
 
   // ----------------------------------------------------------------
   // PRIVATE METHODS FOR MEMORY
 
-  _restore = () => {
+  _restore () {
     if (localStorage != null) {
       const expanded = localStorage.getItem(this.LOCAL_STORAGE_KEY)
       if (expanded != null) {
@@ -159,25 +158,25 @@ class JKOToggler {
         }
       }
     }
-  };
+  }
 
-  _saveOne = (divName) => {
+  _saveOne(divName) {
     if (localStorage != null) {
       localStorage.setItem(this.LOCAL_STORAGE_KEY, divName)
     }
-  };
+  }
 
-  _saveNone = () => {
+  _saveNone() {
     if (localStorage != null) {
       localStorage.setItem(this.LOCAL_STORAGE_KEY, ':none:')
     }
-  };
+  }
 
-  _saveAll = () => {
+  _saveAll() {
     if (localStorage != null) {
       localStorage.setItem(this.LOCAL_STORAGE_KEY, ':all:')
     }
-  };
+  }
 
 }
 
