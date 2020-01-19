@@ -129,15 +129,17 @@ class JKOToggler {
 
   _makeButtonSelected = (button) => {
     button.style.borderColor = this._buttonSelectColor;
-    button.style.borderWidth = 'thin';
+    button.style.backgroundColor = 'white';
+    button.style.borderWidth = '1px';
     button.style.borderStyle = 'solid';
     button.style.borderRadius = '4px';
   };
 
   _makeButtonDeselected = (button) => {
     button.style.borderColor = this._buttonDeselectColor;
-    button.style.borderWidth = 'none';
-    button.style.borderStyle = 'none';
+    button.style.backgroundColor = '#f0f0f0';
+    button.style.borderWidth = '1px';
+    button.style.borderStyle = 'solid';
     button.style.borderRadius = '4px';
   };
 
