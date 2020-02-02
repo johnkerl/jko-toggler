@@ -24,7 +24,7 @@ class JKOToggler {
     this.LOCAL_STORAGE_KEY = document.URL + '-toggler-memory';
 
     this._restore();
-  };
+  }
 
   // Opening one closes others, unless expand-all.
   //
@@ -37,25 +37,25 @@ class JKOToggler {
   //     the new one.
   expandUniquely(divName) {
     const eleDiv = document.getElementById(divName);
-    const button = document.getElementById(divName+"_button")
+    const button = document.getElementById(divName+'_button');
     if (eleDiv != null) {
       if (this._allExpanded) {
         this.collapseAll();
         if (button != null) {
           this._makeButtonSelected(button);
         }
-        eleDiv.style.display = "block";
+        eleDiv.style.display = 'block';
       } else {
         const state = eleDiv.style.display;
         this.collapseAll();
-        if (state === "block") {
+        if (state === 'block') {
           this._makeButtonDeselected(button);
-          eleDiv.style.display = "none";
+          eleDiv.style.display = 'none';
         } else {
           if (button != null) {
             this._makeButtonSelected(button);
           }
-          eleDiv.style.display = "block";
+          eleDiv.style.display = 'block';
         }
       }
     }
@@ -82,7 +82,7 @@ class JKOToggler {
 
   toggle(divName) {
     const div = document.getElementById(divName);
-    const button = document.getElementById(divName+"_button")
+    const button = document.getElementById(divName+'_button');
     if (div != null) {
       const state = div.style.display;
       if (state == 'block') {
@@ -106,23 +106,23 @@ class JKOToggler {
 
   _expand(divName) {
     const eleDiv = document.getElementById(divName);
-    const button = document.getElementById(divName+"_button")
+    const button = document.getElementById(divName+'_button');
     if (eleDiv != null) {
-      eleDiv.style.display = "block";
+      eleDiv.style.display = 'block';
     }
     if (button != null) {
-      this._makeButtonSelected(button)
+      this._makeButtonSelected(button);
     }
   }
 
   _collapse(divName) {
     const eleDiv = document.getElementById(divName);
-    const button = document.getElementById(divName+"_button")
+    const button = document.getElementById(divName+'_button');
     if (eleDiv != null) {
-      eleDiv.style.display = "none";
+      eleDiv.style.display = 'none';
     }
     if (button != null) {
-      this._makeButtonDeselected(button)
+      this._makeButtonDeselected(button);
     }
   }
 
@@ -147,7 +147,7 @@ class JKOToggler {
 
   _restore () {
     if (localStorage != null) {
-      const expanded = localStorage.getItem(this.LOCAL_STORAGE_KEY)
+      const expanded = localStorage.getItem(this.LOCAL_STORAGE_KEY);
       if (expanded != null) {
         if (expanded === ':all:') {
           this.expandAll();
@@ -162,19 +162,19 @@ class JKOToggler {
 
   _saveOne(divName) {
     if (localStorage != null) {
-      localStorage.setItem(this.LOCAL_STORAGE_KEY, divName)
+      localStorage.setItem(this.LOCAL_STORAGE_KEY, divName);
     }
   }
 
   _saveNone() {
     if (localStorage != null) {
-      localStorage.setItem(this.LOCAL_STORAGE_KEY, ':none:')
+      localStorage.setItem(this.LOCAL_STORAGE_KEY, ':none:');
     }
   }
 
   _saveAll() {
     if (localStorage != null) {
-      localStorage.setItem(this.LOCAL_STORAGE_KEY, ':all:')
+      localStorage.setItem(this.LOCAL_STORAGE_KEY, ':all:');
     }
   }
 
