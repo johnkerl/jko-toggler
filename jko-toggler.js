@@ -32,11 +32,14 @@ class JKOToggler {
         this._allDivNames.push(id);
       }
     }
+    console.log("ADN", this._allDivNames);
+    console.log("USHOS", urlShorthands);
 
     this._buttonSelectColor = buttonSelectColor;
     this._buttonDeselectColor = buttonDeselectColor;
     this._allExpanded = false;
-    this.LOCAL_STORAGE_KEY = document.URL + '-toggler-memory';
+    // Include the prefix in case there are multiple togglers on the same page.
+    this.LOCAL_STORAGE_KEY = document.URL + '-toggler-memory-' + toggleableDivPrefix;
 
     // Find out what to expand/collapse:
     // * If specified in the URL, use that
@@ -51,9 +54,12 @@ class JKOToggler {
 
     Object.keys(urlShorthands).forEach(urlShorthand => {
       if (urlParams.get(urlShorthand) != null) {
+        console.log("USHO2", urlShorthand);
         this.collapseAll();
         const divName = urlShorthands[urlShorthand];
+        console.log("USHO3", divName);
         if (divName != null) {
+          console.log("USHO4", divName);
           foundAny = true;
           if (divName === 'all') {
             this.expandAll();
