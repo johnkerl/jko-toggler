@@ -48,7 +48,11 @@ class JKOToggler {
       expanded.split(',').forEach(shorthand => {
         const divName = urlShorthands[shorthand];
         if (divName != null) {
-          this.toggle(divName);
+          if (divName === 'all') {
+            this.expandAll();
+          } else {
+            this.toggle(divName);
+          }
         }
       });
     } else {
