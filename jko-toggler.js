@@ -50,6 +50,8 @@ class JKOToggler {
         if (divName != null) {
           if (divName === 'all') {
             this.expandAll();
+          } else if (divName === 'none') {
+            this.collapseAll();
           } else {
             this.toggle(divName);
           }
