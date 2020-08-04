@@ -24,20 +24,20 @@
 
 <div style="text-align:center">
   <button class="maroon"
-    id="example_1_writing_about_math_button"
-    onClick='toggler1.expandUniquely("example_1_writing_about_math"); return false;'
+    id="example_1_section_1_button"
+    onClick='toggler1.expandUniquely("example_1_section_1"); return false;'
   >Section 1
   </button>
 
   <button
-    id="example_1_writing_about_software_button"
-    onClick='toggler1.expandUniquely("example_1_writing_about_software"); return false;'
+    id="example_1_section_2_button"
+    onClick='toggler1.expandUniquely("example_1_section_2"); return false;'
   >Section 2
   </button>
 
   <button
-    id="example_1_writing_about_other_things_button"
-    onClick='toggler1.expandUniquely("example_1_writing_about_other_things"); return false;'
+    id="example_1_section_3_button"
+    onClick='toggler1.expandUniquely("example_1_section_3"); return false;'
   >Section 3
   </button>
 
@@ -54,7 +54,7 @@
 
 <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
 <p>
-<div id="example_1_writing_about_math" style="display: none">
+<div id="example_1_section_1" style="display: none">
 <h3>Section 1</h3>
 
 <p>
@@ -74,7 +74,7 @@ sem fringilla ut morbi tincidunt augue.
 
 <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
 <p>
-<div id="example_1_writing_about_software" style="display: none">
+<div id="example_1_section_2" style="display: none">
 <h3>Section 2</h3>
 
 <p>
@@ -95,7 +95,7 @@ quis vel eros donec ac.
 </div>
 
 <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
-<div id="example_1_writing_about_other_things" style="display: none">
+<div id="example_1_section_3" style="display: none">
 <h3>Section 3</h3>
 
 <p>
@@ -126,20 +126,20 @@ independently toggleable is-visible button.
 <div style="text-align:center">
   <p>
   <button class="maroon"
-    id="example_2_writing_about_math_button"
-    onClick='toggler2.toggle("example_2_writing_about_math"); return false;'
+    id="example_2_section_1_button"
+    onClick='toggler2.toggle("example_2_section_1"); return false;'
   >Section 1
   </button>
 
   <button
-    id="example_2_writing_about_software_button"
-    onClick='toggler2.toggle("example_2_writing_about_software"); return false;'
+    id="example_2_section_2_button"
+    onClick='toggler2.toggle("example_2_section_2"); return false;'
   >Section 2
   </button>
 
   <button
-    id="example_2_writing_about_other_things_button"
-    onClick='toggler2.toggle("example_2_writing_about_other_things");'
+    id="example_2_section_3_button"
+    onClick='toggler2.toggle("example_2_section_3");'
   >Section 3
   </button>
 
@@ -158,7 +158,7 @@ independently toggleable is-visible button.
 
 <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
 <p>
-<div id="example_2_writing_about_math" style="display: none">
+<div id="example_2_section_1" style="display: none">
 <h3>Section 1</h3>
 
 <p>
@@ -178,7 +178,7 @@ sem fringilla ut morbi tincidunt augue.
 
 <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
 <p>
-<div id="example_2_writing_about_software" style="display: none">
+<div id="example_2_section_2" style="display: none">
 <h3>Section 2</h3>
 
 <p>
@@ -199,7 +199,7 @@ quis vel eros donec ac.
 </div>
 
 <!-- = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = -->
-<div id="example_2_writing_about_other_things" style="display: none">
+<div id="example_2_section_3" style="display: none">
 <h3>Section 3</h3>
 
 <p>
@@ -234,16 +234,29 @@ Source: <a href="https://github.com/johnkerl/jko-toggler">https://github.com/joh
 <script src="./jko-toggler.js"></script>
 <script>
   // Put this at the bottom of the page since its constructor scans the
-  // document's div tags to find the example_2_.
+  // document's div tags to find the expandables.
   const toggler1 = new JKOToggler(
     'example_1_',
     'maroon',
     'gray',
+    {
+      'a1': 'example_1_section_1',
+      'a2': 'example_1_section_2',
+      'a3': 'example_1_section_3',
+      'lorem': 'example_1_section_1',
+      'ipsum': 'example_1_section_2',
+      'numc': 'example_1_section_3',
+    },
   );
   const toggler2 = new JKOToggler(
     'example_2_',
     'maroon',
     'gray',
+    {
+      'b1': 'example_2_section_1',
+      'b2': 'example_2_section_2',
+      'b3': 'example_2_section_3',
+    },
   );
 </script>
 

@@ -11,7 +11,19 @@ class JKOToggler {
   // ----------------------------------------------------------------
   // PUBLIC METHODS
 
-  constructor(toggleableDivPrefix, buttonSelectColor, buttonDeselectColor) {
+  /**
+   * toggleableDivPrefix: Your naming convention for the prefix of all the
+   * expandable divs in your HTML which you want this class to manage.
+   *
+   * buttonSelectColor: color for selected buttons.
+   *
+   * buttonDeselectColor: color for deselected buttons.
+   *
+   * urlShorthands: an object mapping short names like 'foo' to full div names
+   * like 'toggleable_div_foo'. Then users can access 'index.html?expanded=foo'
+   * to get a link to the page with div id 'toggleable_div_foo' expanded.
+   */
+  constructor(toggleableDivPrefix, buttonSelectColor, buttonDeselectColor, urlShorthands) {
     this._allDivNames = [];
     const divs = document.querySelectorAll('div');
     for (let div of divs) {
@@ -26,7 +38,22 @@ class JKOToggler {
     this._allExpanded = false;
     this.LOCAL_STORAGE_KEY = document.URL + '-toggler-memory';
 
-    this._restore();
+    // Find out what to expand/collapse:
+    // * If specified in the URL, use that
+    // * Else retrieve last-used from browser local storage
+    const urlParams = new URLSearchParams(window.location.search);
+    const expanded = urlParams.get('expanded')
+    if (expanded != null && expanded != "") {
+      this.collapseAll();
+      expanded.split(',').forEach(shorthand => {
+        const divName = urlShorthands[shorthand];
+        if (divName != null) {
+          this.toggle(divName);
+        }
+      });
+    } else {
+      this._restore();
+    }
   }
 
   // Opening one closes others, unless expand-all.
@@ -180,7 +207,6 @@ class JKOToggler {
       localStorage.setItem(this.LOCAL_STORAGE_KEY, ':all:');
     }
   }
-
 }
 
 // module.exports = JKOToggler;
