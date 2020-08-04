@@ -71,25 +71,6 @@ class JKOToggler {
       this._restore();
     }
 
-//    const expanded = urlParams.get('expanded')
-//    if (expanded != null && expanded != "") {
-//      this.collapseAll();
-//      expanded.split(',').forEach(shorthand => {
-//        const divName = urlShorthands[shorthand];
-//        if (divName != null) {
-//          if (divName === 'all') {
-//            this.expandAll();
-//          } else if (divName === 'none') {
-//            this.collapseAll();
-//          } else {
-//            this.toggle(divName);
-//          }
-//        }
-//      });
-//    } else {
-//      this._restore();
-//    }
-
   }
 
   // Opening one closes others, unless expand-all.
