@@ -1,9 +1,12 @@
-// TO DO:
-// * module.exports
-// * document this class
-
 'use strict';
 
+/**
+ * Simple support for expandable/collapsible sections within HTML files.
+ * To do: module.exports.
+ *
+ * John Kerl, 2020
+ * https://github.com/johnkerl/jko-toggler/blob/master/README.md
+ */
 class JKOToggler {
   // ----------------------------------------------------------------
   // PUBLIC METHODS
