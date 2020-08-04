@@ -20,7 +20,7 @@ class JKOToggler {
    * buttonDeselectColor: color for deselected buttons.
    *
    * urlShorthands: an object mapping short names like 'foo' to full div names
-   * like 'toggleable_div_foo'. Then users can access 'index.html?expanded=foo'
+   * like 'toggleable_div_foo'. Then users can access 'index.html?foo'
    * to get a link to the page with div id 'toggleable_div_foo' expanded.
    */
   constructor(toggleableDivPrefix, buttonSelectColor, buttonDeselectColor, urlShorthands) {
