@@ -2,7 +2,11 @@
 
 A quick little example of using JavaScript buttons to toggle section visibility for HTML pages.
 
-Live demo: https://johnkerl.org/jko-toggler
+Live demo:
+
+* https://johnkerl.org/jko-toggler
+* https://johnkerl.org/jko-toggler?expanded=lorem
+* https://johnkerl.org/jko-toggler?expanded=all
 
 See [`index.html`](index.html) in this repo for example usage:
 
