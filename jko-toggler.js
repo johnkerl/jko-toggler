@@ -40,14 +40,21 @@ class JKOToggler {
 
     // Find out what to expand/collapse:
     // * If specified in the URL, use that
+    //   Example:
+    //   o urlShorthands = {'about': 'toggleable_div_about'}
+    //   o URL = https://nameofsite.org/nameofpage?about
+    //   o Then expand the 'toggleable_div_about' div
     // * Else retrieve last-used from browser local storage
     const urlParams = new URLSearchParams(window.location.search);
-    const expanded = urlParams.get('expanded')
-    if (expanded != null && expanded != "") {
-      this.collapseAll();
-      expanded.split(',').forEach(shorthand => {
-        const divName = urlShorthands[shorthand];
+
+    let foundAny = false;
+
+    Object.keys(urlShorthands).forEach(urlShorthand => {
+      if (urlParams.get(urlShorthand) != null) {
+        this.collapseAll();
+        const divName = urlShorthands[urlShorthand];
         if (divName != null) {
+          foundAny = true;
           if (divName === 'all') {
             this.expandAll();
           } else if (divName === 'none') {
@@ -56,10 +63,33 @@ class JKOToggler {
             this.toggle(divName);
           }
         }
-      });
-    } else {
+      }
+    });
+
+    // Nothing in the URL; use browser-local storage.
+    if (!foundAny) {
       this._restore();
     }
+
+//    const expanded = urlParams.get('expanded')
+//    if (expanded != null && expanded != "") {
+//      this.collapseAll();
+//      expanded.split(',').forEach(shorthand => {
+//        const divName = urlShorthands[shorthand];
+//        if (divName != null) {
+//          if (divName === 'all') {
+//            this.expandAll();
+//          } else if (divName === 'none') {
+//            this.collapseAll();
+//          } else {
+//            this.toggle(divName);
+//          }
+//        }
+//      });
+//    } else {
+//      this._restore();
+//    }
+
   }
 
   // Opening one closes others, unless expand-all.
@@ -162,6 +192,10 @@ class JKOToggler {
     }
   }
 
+  // This is a bit of a janky API. The button color is specified in the
+  // constructor; other stylings are hard-coded. Either they should all be
+  // hard-coded here, or, a fill button-styling object should be passed into
+  // the constructor.
   _makeButtonSelected (button) {
     button.style.borderColor = this._buttonSelectColor;
     button.style.backgroundColor = 'white';
