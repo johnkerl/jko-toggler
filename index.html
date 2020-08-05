@@ -235,10 +235,26 @@ Source: <a href="https://github.com/johnkerl/jko-toggler">https://github.com/joh
 <script>
   // Put this at the bottom of the page since its constructor scans the
   // document's div tags to find the expandables.
+
+  const buttonSelectedStyle = {
+    borderColor: 'maroon',
+    backgroundColor: 'white',
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    borderRadius: '4px',
+  };
+  const buttonDeselectedStyle = {
+    borderColor: 'gray',
+    backgroundColor: '#f0f0f0',
+    borderWidth: '1px',
+    borderStyle: 'solid',
+    borderRadius: '4px',
+  };
+
   const toggler1 = new JKOToggler(
     'example_1_',
-    'maroon',
-    'gray',
+    buttonSelectedStyle,
+    buttonDeselectedStyle,
     {
       'a1': 'example_1_section_1',
       'a2': 'example_1_section_2',
@@ -250,10 +266,11 @@ Source: <a href="https://github.com/johnkerl/jko-toggler">https://github.com/joh
       'none': 'none',
     },
   );
+
   const toggler2 = new JKOToggler(
     'example_2_',
-    'maroon',
-    'gray',
+    buttonSelectedStyle,
+    buttonDeselectedStyle,
     {
       'b1': 'example_2_section_1',
       'b2': 'example_2_section_2',

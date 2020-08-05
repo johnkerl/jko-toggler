@@ -15,15 +15,15 @@ class JKOToggler {
    * toggleableDivPrefix: Your naming convention for the prefix of all the
    * expandable divs in your HTML which you want this class to manage.
    *
-   * buttonSelectColor: color for selected buttons.
+   * buttonSelectStyle: style updates for selected buttons.
    *
-   * buttonDeselectColor: color for deselected buttons.
+   * buttonDeselectStyle: style updates for deselected buttons.
    *
    * urlShorthands: an object mapping short names like 'foo' to full div names
    * like 'toggleable_div_foo'. Then users can access 'index.html?foo'
    * to get a link to the page with div id 'toggleable_div_foo' expanded.
    */
-  constructor(toggleableDivPrefix, buttonSelectColor, buttonDeselectColor, urlShorthands) {
+  constructor(toggleableDivPrefix, buttonSelectStyle, buttonDeselectStyle, urlShorthands) {
     this._allDivNames = [];
     const divs = document.querySelectorAll('div');
     for (let div of divs) {
@@ -32,11 +32,9 @@ class JKOToggler {
         this._allDivNames.push(id);
       }
     }
-    console.log("ADN", this._allDivNames);
-    console.log("USHOS", urlShorthands);
 
-    this._buttonSelectColor = buttonSelectColor;
-    this._buttonDeselectColor = buttonDeselectColor;
+    this._buttonSelectStyle = buttonSelectStyle;
+    this._buttonDeselectStyle = buttonDeselectStyle;
     this._allExpanded = false;
     // Include the prefix in case there are multiple togglers on the same page.
     this.LOCAL_STORAGE_KEY = document.URL + '-toggler-memory-' + toggleableDivPrefix;
@@ -54,12 +52,9 @@ class JKOToggler {
 
     Object.keys(urlShorthands).forEach(urlShorthand => {
       if (urlParams.get(urlShorthand) != null) {
-        console.log("USHO2", urlShorthand);
         this.collapseAll();
         const divName = urlShorthands[urlShorthand];
-        console.log("USHO3", divName);
         if (divName != null) {
-          console.log("USHO4", divName);
           foundAny = true;
           if (divName === 'all') {
             this.expandAll();
@@ -179,24 +174,16 @@ class JKOToggler {
     }
   }
 
-  // This is a bit of a janky API. The button color is specified in the
-  // constructor; other stylings are hard-coded. Either they should all be
-  // hard-coded here, or, a fill button-styling object should be passed into
-  // the constructor.
   _makeButtonSelected (button) {
-    button.style.borderColor = this._buttonSelectColor;
-    button.style.backgroundColor = 'white';
-    button.style.borderWidth = '1px';
-    button.style.borderStyle = 'solid';
-    button.style.borderRadius = '4px';
+    Object.keys(this._buttonSelectStyle).forEach(key => {
+      button.style[key] = this._buttonSelectStyle[key];
+    });
   }
 
   _makeButtonDeselected(button) {
-    button.style.borderColor = this._buttonDeselectColor;
-    button.style.backgroundColor = '#f0f0f0';
-    button.style.borderWidth = '1px';
-    button.style.borderStyle = 'solid';
-    button.style.borderRadius = '4px';
+    Object.keys(this._buttonDeselectStyle).forEach(key => {
+      button.style[key] = this._buttonDeselectStyle[key];
+    });
   }
 
   // ----------------------------------------------------------------
