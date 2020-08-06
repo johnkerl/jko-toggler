@@ -14,6 +14,9 @@ class JKOToggler {
   /**
    * toggleableDivPrefix: Your naming convention for the prefix of all the
    * expandable divs in your HTML which you want this class to manage.
+   * Example: Your prefix is 'toggleable_'. Have divs with IDs "toggleable_1"
+   * and "toggleable_2". In your HTML, have buttons with IDs
+   * "toggleable_1_button" and "toggleable_2_button".
    *
    * buttonSelectStyle: style updates for selected buttons.
    *
