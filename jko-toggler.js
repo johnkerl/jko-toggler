@@ -89,6 +89,7 @@ class JKOToggler {
   expandUniquely(divName) {
     const eleDiv = document.getElementById(divName);
     const button = document.getElementById(divName+'_button');
+    let wasExpanded = false;
     if (eleDiv != null) {
       if (this._allExpanded) {
         this.collapseAll();
@@ -96,23 +97,30 @@ class JKOToggler {
           this._makeButtonSelected(button);
         }
         eleDiv.style.display = 'block';
+        wasExpanded = true;
       } else {
         const state = eleDiv.style.display;
         this.collapseAll();
         if (state === 'block') {
           this._makeButtonDeselected(button);
           eleDiv.style.display = 'none';
+          wasExpanded = false;
         } else {
           if (button != null) {
             this._makeButtonSelected(button);
           }
           eleDiv.style.display = 'block';
+          wasExpanded = true;
         }
       }
     }
     this._allExpanded = false;
 
-    this._saveOne(divName);
+    if (wasExpanded) {
+      this._saveOne(divName);
+    } else {
+      this._saveNone();
+    }
   }
 
   expandAll() {
