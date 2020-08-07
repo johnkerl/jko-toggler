@@ -93,9 +93,7 @@ class JKOToggler {
     if (eleDiv != null) {
       if (this._allExpanded) {
         this.collapseAll();
-        if (button != null) {
-          this._makeButtonSelected(button);
-        }
+        this._makeButtonSelected(button);
         eleDiv.style.display = 'block';
         wasExpanded = true;
       } else {
@@ -106,9 +104,7 @@ class JKOToggler {
           eleDiv.style.display = 'none';
           wasExpanded = false;
         } else {
-          if (button != null) {
-            this._makeButtonSelected(button);
-          }
+          this._makeButtonSelected(button);
           eleDiv.style.display = 'block';
           wasExpanded = true;
         }
@@ -146,15 +142,11 @@ class JKOToggler {
       const state = div.style.display;
       if (state == 'block') {
         div.style.display = 'none';
-        if (button != null) {
-          this._makeButtonDeselected(button);
-        }
+        this._makeButtonDeselected(button);
         this._saveNone();
       } else {
         div.style.display = 'block';
-        if (button != null) {
-          this._makeButtonSelected(button);
-        }
+        this._makeButtonSelected(button);
         this._saveOne(divName);
       }
     }
@@ -169,9 +161,7 @@ class JKOToggler {
     if (eleDiv != null) {
       eleDiv.style.display = 'block';
     }
-    if (button != null) {
-      this._makeButtonSelected(button);
-    }
+    this._makeButtonSelected(button);
   }
 
   _collapse(divName) {
@@ -180,21 +170,23 @@ class JKOToggler {
     if (eleDiv != null) {
       eleDiv.style.display = 'none';
     }
-    if (button != null) {
-      this._makeButtonDeselected(button);
-    }
+    this._makeButtonDeselected(button);
   }
 
   _makeButtonSelected (button) {
-    Object.keys(this._buttonSelectStyle).forEach(key => {
-      button.style[key] = this._buttonSelectStyle[key];
-    });
+    if (button != null) {
+      Object.keys(this._buttonSelectStyle).forEach(key => {
+        button.style[key] = this._buttonSelectStyle[key];
+      });
+    }
   }
 
   _makeButtonDeselected(button) {
-    Object.keys(this._buttonDeselectStyle).forEach(key => {
-      button.style[key] = this._buttonDeselectStyle[key];
-    });
+    if (button != null) {
+      Object.keys(this._buttonDeselectStyle).forEach(key => {
+        button.style[key] = this._buttonDeselectStyle[key];
+      });
+    }
   }
 
   // ----------------------------------------------------------------
