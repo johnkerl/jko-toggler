@@ -27,6 +27,8 @@ class JKOToggler {
    * to get a link to the page with div id 'toggleable_div_foo' expanded.
    */
   constructor(toggleableDivPrefix, buttonSelectStyle, buttonDeselectStyle, urlShorthands) {
+
+    // Find all the divs on the page whose visibility we're asked to manage.
     this._allDivNames = [];
     const divs = document.querySelectorAll('div');
     for (let div of divs) {
@@ -36,6 +38,7 @@ class JKOToggler {
       }
     }
 
+    // Save constructor arguments in object-instance state
     this._buttonSelectStyle = buttonSelectStyle;
     this._buttonDeselectStyle = buttonDeselectStyle;
     this._allExpanded = false;
@@ -72,11 +75,11 @@ class JKOToggler {
 
     // Nothing in the URL; use browser-local storage.
     if (!foundAny) {
-      this._restore();
+      this._restoreFromLocalStorage();
     }
-
   }
 
+  // ----------------------------------------------------------------
   // Opening one closes others, unless expand-all.
   //
   // * If everything is expanded, selecting one means *keep* it expanded
@@ -87,25 +90,25 @@ class JKOToggler {
   //   o selecting that another means collapse the old one and expand
   //     the new one.
   expandUniquely(divName) {
-    const eleDiv = document.getElementById(divName);
+    const div = document.getElementById(divName);
     const button = document.getElementById(divName+'_button');
     let wasExpanded = false;
-    if (eleDiv != null) {
+    if (div != null) {
       if (this._allExpanded) {
         this.collapseAll();
+        this._makeDivShown(div);
         this._makeButtonSelected(button);
-        eleDiv.style.display = 'block';
         wasExpanded = true;
       } else {
-        const state = eleDiv.style.display;
+        const wasShown = this._isDivShown(div);
         this.collapseAll();
-        if (state === 'block') {
+        if (wasShown) {
+          this._makeDivHidden(div);
           this._makeButtonDeselected(button);
-          eleDiv.style.display = 'none';
           wasExpanded = false;
         } else {
+          this._makeDivShown(div);
           this._makeButtonSelected(button);
-          eleDiv.style.display = 'block';
           wasExpanded = true;
         }
       }
@@ -113,9 +116,26 @@ class JKOToggler {
     this._allExpanded = false;
 
     if (wasExpanded) {
-      this._saveOne(divName);
+      this._saveOneShownToLocalStorage(divName);
     } else {
-      this._saveNone();
+      this._saveNoneShownToLocalStorage();
+    }
+  }
+
+  // Or, "expand non-uniquely".
+  toggle(divName) {
+    const div = document.getElementById(divName);
+    const button = document.getElementById(divName+'_button');
+    if (div != null) {
+      if (this._isDivShown(div)) {
+        this._makeDivHidden(div);
+        this._makeButtonDeselected(button);
+        this._saveNoneShownToLocalStorage();
+      } else {
+        this._makeDivShown(div);
+        this._makeButtonSelected(button);
+        this._saveOneShownToLocalStorage(divName);
+      }
     }
   }
 
@@ -124,7 +144,7 @@ class JKOToggler {
       this._expand(divName);
     }
     this._allExpanded = true;
-    this._saveAll();
+    this._saveAllShownToLocalStorage();
   }
 
   collapseAll() {
@@ -132,22 +152,23 @@ class JKOToggler {
       this._collapse(divName);
     }
     this._allExpanded = false;
-    this._saveNone();
+    this._saveNoneShownToLocalStorage();
   }
 
-  toggle(divName) {
-    const div = document.getElementById(divName);
-    const button = document.getElementById(divName+'_button');
-    if (div != null) {
-      const state = div.style.display;
-      if (state == 'block') {
-        div.style.display = 'none';
-        this._makeButtonDeselected(button);
-        this._saveNone();
-      } else {
-        div.style.display = 'block';
-        this._makeButtonSelected(button);
-        this._saveOne(divName);
+  // ----------------------------------------------------------------
+  // PRIVATE METHODS FOR RESTORE
+
+  _restoreFromLocalStorage () {
+    if (localStorage != null) {
+      const expanded = localStorage.getItem(this.LOCAL_STORAGE_KEY);
+      if (expanded != null) {
+        if (expanded === ':all:') {
+          this.expandAll();
+        } else if (expanded === ':none:') {
+          this.collapseAll();
+        } else {
+          this.expandUniquely(expanded);
+        }
       }
     }
   }
@@ -156,22 +177,40 @@ class JKOToggler {
   // PRIVATE METHODS FOR TOGGLE FUNCTIONALITY
 
   _expand(divName) {
-    const eleDiv = document.getElementById(divName);
+    const div = document.getElementById(divName);
     const button = document.getElementById(divName+'_button');
-    if (eleDiv != null) {
-      eleDiv.style.display = 'block';
-    }
+    this._makeDivShown(div);
     this._makeButtonSelected(button);
   }
 
   _collapse(divName) {
-    const eleDiv = document.getElementById(divName);
+    const div = document.getElementById(divName);
     const button = document.getElementById(divName+'_button');
-    if (eleDiv != null) {
-      eleDiv.style.display = 'none';
-    }
+    this._makeDivHidden(div);
     this._makeButtonDeselected(button);
   }
+
+  // ----------------------------------------------------------------
+  // PRIVATE METHODS FOR DIV UPDATES
+
+  _isDivShown(div) {
+    return div.style.display != 'none';
+  }
+
+  _makeDivShown(div) {
+    if (div != null) {
+      div.style.display = 'block';
+    }
+  }
+
+  _makeDivHidden(div) {
+    if (div != null) {
+      div.style.display = 'none';
+    }
+  }
+
+  // ----------------------------------------------------------------
+  // PRIVATE METHODS FOR BUTTON UPDATES
 
   _makeButtonSelected (button) {
     if (button != null) {
@@ -192,34 +231,19 @@ class JKOToggler {
   // ----------------------------------------------------------------
   // PRIVATE METHODS FOR MEMORY
 
-  _restore () {
-    if (localStorage != null) {
-      const expanded = localStorage.getItem(this.LOCAL_STORAGE_KEY);
-      if (expanded != null) {
-        if (expanded === ':all:') {
-          this.expandAll();
-        } else if (expanded === ':none:') {
-          this.collapseAll();
-        } else {
-          this.expandUniquely(expanded);
-        }
-      }
-    }
-  }
-
-  _saveOne(divName) {
+  _saveOneShownToLocalStorage(divName) {
     if (localStorage != null) {
       localStorage.setItem(this.LOCAL_STORAGE_KEY, divName);
     }
   }
 
-  _saveNone() {
+  _saveNoneShownToLocalStorage() {
     if (localStorage != null) {
       localStorage.setItem(this.LOCAL_STORAGE_KEY, ':none:');
     }
   }
 
-  _saveAll() {
+  _saveAllShownToLocalStorage() {
     if (localStorage != null) {
       localStorage.setItem(this.LOCAL_STORAGE_KEY, ':all:');
     }
