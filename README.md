@@ -2,6 +2,8 @@
 
 A quick little example of using JavaScript buttons to toggle section visibility for HTML pages.
 
+_Update 2025-01-11:_ This has been reimplemented as (and superseded by) the `URLAndPersistentNButtonToggler` class within the [Sliver JavaScript library](https://github.com/johnkerl/sliver).
+
 Live demo:
 
 * https://johnkerl.org/jko-toggler
